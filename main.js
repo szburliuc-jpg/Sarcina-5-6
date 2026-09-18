@@ -1,90 +1,121 @@
-const grades = [7, 9, 5, 10, 8, 6];
-
-
-const highGrades = grades.filter(grade => grade >= 8);
-
-console.log("Note >= 8:", highGrades);
-
-
-const sum = grades.reduce((total, grade) => total + grade, 0);
-const average = sum / grades.length;
-
-console.log("Media notelor:", average);
-
-
-const increasedGrades = grades.map(grade => Math.min(grade + 1, 10));
-
-console.log("Note mărite cu 1:", increasedGrades);
-import { calculateAverage, calculateSum } from "./utils.js";
-
-import {
-    getStudentsWithHighGrades,
-    calculateClassAverage,
-    findStudentById,
-    addStudent,
-    displayStudents
-} from "./students.js";
-
-const students = [
-    { id: 1, name: "Ana", grade: 9 },
-    { id: 2, name: "Ion", grade: 7 },
-    { id: 3, name: "Maria", grade: 10 },
-    { id: 4, name: "Andrei", grade: 6 },
-    { id: 5, name: "Elena", grade: 8 }
+const employees = [
+    {
+        id: 1,
+        name: "Ana Popescu",
+        department: "IT",
+        salary: 12000,
+        experience: 5
+    },
+    {
+        id: 2,
+        name: "Ion Rusu",
+        department: "Marketing",
+        salary: 9000,
+        experience: 2
+    },
+    {
+        id: 3,
+        name: "Maria Ciobanu",
+        department: "IT",
+        salary: 14000,
+        experience: 7
+    },
+    {
+        id: 4,
+        name: "Andrei Lupu",
+        department: "HR",
+        salary: 8500,
+        experience: 4
+    },
+    {
+        id: 5,
+        name: "Elena Munteanu",
+        department: "Finance",
+        salary: 11000,
+        experience: 6
+    },
+    {
+        id: 6,
+        name: "Vlad Cojocaru",
+        department: "Marketing",
+        salary: 9500,
+        experience: 3
+    },
+    {
+        id: 7,
+        name: "Irina Ceban",
+        department: "IT",
+        salary: 13000,
+        experience: 4
+    }
 ];
 
-console.log("=== TOȚI ELEVII ===");
-displayStudents(students);
+// Gruparea angajaților după departament
+const employeesByDepartment = employees.reduce((groups, employee) => {
+    const { department } = employee;
 
-console.log("\n=== ELEVI CU NOTA >= 8 ===");
+    if (!groups[department]) {
+        groups[department] = [];
+    }
 
-const highGradeStudents = getStudentsWithHighGrades(students);
-displayStudents(highGradeStudents);
+    groups[department].push(employee);
 
-console.log("\n=== MEDIA CLASEI ===");
+    return groups;
+}, {});
 
-const classAverage = calculateClassAverage(students);
-console.log(`Media clasei este: ${classAverage}`);
+console.log("=== ANGAJAȚI PE DEPARTAMENTE ===");
 
-console.log("\n=== CĂUTARE ELEV ===");
+Object.entries(employeesByDepartment).forEach(
+    ([department, departmentEmployees]) => {
+        console.log(`\nDepartament: ${department}`);
 
-try {
-    const student = findStudentById(students, 3);
+        departmentEmployees.forEach(({ name, salary }) => {
+            console.log(`${name} - salariu: ${salary} lei`);
+        });
+    }
+);
 
-    console.log(
-        `Elev găsit: ${student.name}, nota: ${student.grade}`
-    );
-} catch (error) {
-    console.log(`Eroare: ${error.message}`);
-}
+// Salariul mediu
+const averageSalary =
+    employees.reduce((sum, employee) => sum + employee.salary, 0) /
+    employees.length;
 
-console.log("\n=== CĂUTARE ELEV INEXISTENT ===");
+console.log("\n=== SALARIUL MEDIU ===");
+console.log(`Salariul mediu este: ${averageSalary} lei`);
 
-try {
-    const student = findStudentById(students, 99);
+// Angajați cu experiență mai mare de 3 ani
+const experiencedEmployees = employees.filter(
+    employee => employee.experience > 3
+);
 
-    console.log(
-        `Elev găsit: ${student.name}, nota: ${student.grade}`
-    );
-} catch (error) {
-    console.log(`Eroare: ${error.message}`);
-}
+console.log("\n=== ANGAJAȚI CU EXPERIENȚĂ > 3 ANI ===");
 
-console.log("\n=== ADAUGARE ELEV NOU ===");
+experiencedEmployees.forEach(({ name, experience }) => {
+    console.log(`${name} - ${experience} ani experiență`);
+});
 
-const newStudent = {
-    id: 6,
-    name: "Vlad",
-    grade: 9
-};
+// Majorarea salariului cu 10%
+const updatedEmployees = employees.map(employee => {
+    if (employee.experience > 3) {
+        return {
+            ...employee,
+            salary: employee.salary * 1.1
+        };
+    }
 
-const updatedStudents = addStudent(students, newStudent);
+    return {
+        ...employee
+    };
+});
 
-displayStudents(updatedStudents);
+console.log("\n=== RAPORT FINAL ===");
 
-console.log("\n=== FUNCȚII DIN utils.js ===");
-
-const values = [10, 8, 9, 7, 6];
-
-console.log(`Suma valorilor: ${calculateSum(values)}`);
-console.log(`Media valorilor: ${calculateAverage(values)}`);
+updatedEmployees.forEach(
+    ({ id, name, department, salary, experience }) => {
+        console.log(
+            `ID: ${id} | ${name} | Departament: ${department} | ` +
+            `Salariu: ${salary.toFixed(2)} lei | ` +
+            `Experiență: ${experience} ani`
+        );
+    }
+);
