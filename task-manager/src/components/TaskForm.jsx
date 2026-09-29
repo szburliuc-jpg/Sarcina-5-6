@@ -10,7 +10,7 @@ function TaskForm({ onAddTask }) {
       return;
     }
 
-    onAddTask(taskName);
+    onAddTask(taskName.trim());
     setTaskName("");
   };
 
@@ -18,7 +18,7 @@ function TaskForm({ onAddTask }) {
     <form onSubmit={handleSubmit} className="task-form">
       <input
         type="text"
-        placeholder="Introdu denumirea sarcinii"
+        placeholder="Introdu un task..."
         value={taskName}
         onChange={(event) => setTaskName(event.target.value)}
       />

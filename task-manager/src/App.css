@@ -9,82 +9,72 @@ body {
 }
 
 .app {
-  width: 90%;
-  max-width: 700px;
+  width: 600px;
+  max-width: 90%;
   margin: 50px auto;
   padding: 30px;
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 25px;
-}
-
-.stats {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  font-weight: bold;
 }
 
 .task-form {
   display: flex;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .task-form input {
   flex: 1;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
+  padding: 10px;
 }
 
 button {
-  padding: 10px 16px;
+  padding: 10px 15px;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.task-form button {
-  background: #222;
-  color: white;
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.task-item {
+.task {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  padding: 12px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
-.task-item span {
+.task span {
   flex: 1;
 }
 
-.task-item.completed span {
+.task.completed span {
   text-decoration: line-through;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
-.task-item button {
-  background: #e5e5e5;
-}
-
-.empty-message {
+.loading {
   text-align: center;
-  color: #777;
+}
+
+.error {
+  padding: 15px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.error button {
+  margin-top: 10px;
 }
